@@ -1,10 +1,12 @@
 <?php
 
-defined('TYPO3') or die();
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TRITUM\RepeatableFormElements\Configuration\Extension;
+defined('TYPO3') || die();
 
 call_user_func(function () {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        \TRITUM\RepeatableFormElements\Configuration\Extension::KEY,
+    ExtensionManagementUtility::addStaticFile(
+        Extension::KEY,
         'Configuration/TypoScript',
         'Repeatable form configuration'
     );
