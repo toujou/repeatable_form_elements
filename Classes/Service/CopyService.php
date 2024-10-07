@@ -135,7 +135,7 @@ class CopyService
 
                 if (
                     $originalContainer
-                    && count(array_filter(array_keys($copyIndexes), 'is_string')) === 0
+                    && array_filter(array_keys($copyIndexes), 'is_string') === []
                 ) {
                     $copyIndexes = ArrayUtility::sortArrayWithIntegerKeys($copyIndexes);
 
@@ -182,7 +182,7 @@ class CopyService
     }
 
     /**
-     * @param RepeatableContainerInterface $originalContainer
+     * @param RepeatableContainerInterface $copyFromContainer
      * @param RepeatableContainerInterface $moveAfterContainer
      * @param string $newIdentifier
      * @return RepeatableContainerInterface
@@ -196,7 +196,8 @@ class CopyService
         $implementationClassName = $this->typeDefinitions[$typeName]['implementationClassName'];
         $parentRenderableForNewContainer = $moveAfterContainer->getParentRenderable();
 
-        $newContainer = $this->getObjectManager()->get($implementationClassName, $newIdentifier, $typeName);
+        // $newContainer = $this->getObjectManager()->get($implementationClassName, $newIdentifier, $typeName);
+        $newContainer = GeneralUtility::makeInstance($implementationClassName, $newIdentifier, $typeName);
         $this->copyOptions($newContainer, $copyFromContainer);
 
         $parentRenderableForNewContainer->addElement($newContainer);
@@ -250,7 +251,7 @@ class CopyService
 
     /**
      * @param FormElementInterface $originalFormElement
-     * @param CompositeRenderableInterface $parentFormElement
+     * @param CompositeRenderableInterface $parentFormElementCopy
      * @param string $identifierOriginal
      * @param string $identifierReplacement
      */
@@ -320,9 +321,10 @@ class CopyService
         int $timestamp,
         string $defaultMessage = ''
     ): void {
-        $error = $this->getObjectManager()->get(
+        // $error = $this->getObjectManager()->get(
+        $error = GeneralUtility::makeInstance(
             Error::class,
-            TranslationService::getInstance()->translateFormElementError(
+            GeneralUtility::makeInstance(TranslationService::class)->translateFormElementError(
                 $formElement,
                 $timestamp,
                 [],
@@ -353,7 +355,7 @@ class CopyService
 
                 if (
                     $originalContainer
-                    && count(array_filter(array_keys($copyIndexes), 'is_string')) === 0
+                    && array_filter(array_keys($copyIndexes), 'is_string') === []
                 ) {
                     $currentArgumentPath = implode('.', $argumentPath);
                     $formValue = $this->formState->getFormValue($currentArgumentPath);
@@ -373,11 +375,11 @@ class CopyService
         }
     }
 
-    /**
-     * @return ObjectManager
-     */
-    protected function getObjectManager(): ObjectManager
-    {
-        return GeneralUtility::makeInstance(ObjectManager::class);
-    }
+    // /**
+    //  * @return ObjectManager
+    //  */
+    // protected function getObjectManager(): ObjectManager
+    // {
+    //     return GeneralUtility::makeInstance(ObjectManager::class);
+    // }
 }

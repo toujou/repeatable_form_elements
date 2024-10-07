@@ -1,48 +1,51 @@
 {
-    "name": "toujou/tritum_repeatable-form-elements",
-    "description": "Adds a new form element which allows the editor to create new container elements with any type fields in them. In the frontend, a user can create any number of new containers. This is an extension for TYPO3 CMS.",
-    "license": "GPL-2.0-or-later",
-    "type": "typo3-cms-extension",
-    "authors": [
-        {
-            "name": "Ralf Zimmermann",
-            "email": "ralf.zimmermann@tritum.de",
-            "homepage": "https://www.tritum.de",
-            "role": "Developer"
-        },
-        {
-            "name": "Falko Linke TRITUM GmbH",
-            "email": "falko.linke@tritum.de",
-            "homepage": "https://www.tritum.de",
-            "role": "Developer"
-        },
-        {
-            "name": "Elias Häußler",
-            "email": "elias@haeussler.dev",
-            "homepage": "https://haeussler.dev",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "typo3/cms-core": "^11.5.23",
-        "typo3/cms-extbase": "^11.5.23",
-        "typo3/cms-form": "^11.5.23"
+  "name": "toujou/tritum_repeatable-form-elements",
+  "description": "Adds a new form element which allows the editor to create new container elements with any type fields in them. In the frontend, a user can create any number of new containers. This is an extension for TYPO3 CMS.",
+  "license": "GPL-2.0-or-later",
+  "type": "typo3-cms-extension",
+  "authors": [
+    {
+      "name": "Ralf Zimmermann",
+      "email": "ralf.zimmermann@tritum.de",
+      "homepage": "https://www.tritum.de",
+      "role": "Developer"
     },
-    "autoload": {
-        "psr-4": {
-            "TRITUM\\RepeatableFormElements\\": "Classes/"
-        }
+    {
+      "name": "Falko Linke TRITUM GmbH",
+      "email": "falko.linke@tritum.de",
+      "homepage": "https://www.tritum.de",
+      "role": "Developer"
     },
-    "config": {
-        "allow-plugins": {
-            "typo3/class-alias-loader": true,
-            "typo3/cms-composer-installers": true
-        },
-        "sort-packages": true
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "repeatable_form_elements"
-        }
+    {
+      "name": "Elias Häußler",
+      "email": "elias@haeussler.dev",
+      "homepage": "https://haeussler.dev",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "typo3/cms-core": "^11.5.23 || ^12.4.0",
+    "typo3/cms-extbase": "^11.5.23 || ^12.4.0",
+    "typo3/cms-form": "^11.5.23 || ^12.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "TRITUM\\RepeatableFormElements\\": "Classes/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "v12.x-dev"
+    },
+    "typo3/cms": {
+      "extension-key": "repeatable_form_elements"
+    }
+  }
 }

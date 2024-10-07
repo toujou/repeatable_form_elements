@@ -45,9 +45,11 @@ class FormHooks
         }
 
         if ($this->userWentBackToPreviousStep($formRuntime, $currentPage, $lastPage)) {
-            $this->getObjectManager()->get(CopyService::class, $formRuntime)->createCopiesFromFormState();
+            GeneralUtility::makeInstance(CopyService::class, $formRuntime)->createCopiesFromFormState();
+            // $this->getObjectManager()->get(CopyService::class, $formRuntime)->createCopiesFromFormState();
         } else {
-            $this->getObjectManager()->get(CopyService::class, $formRuntime)->createCopiesFromCurrentRequest();
+            GeneralUtility::makeInstance(CopyService::class, $formRuntime)->createCopiesFromCurrentRequest();
+            // $this->getObjectManager()->get(CopyService::class, $formRuntime)->createCopiesFromCurrentRequest();
         }
 
         return $currentPage;
@@ -83,7 +85,7 @@ class FormHooks
         FormRuntime $formRuntime,
         array $repeatableContainerIdentifiers = []
     ): void {
-        $isRepeatableContainer = $renderable instanceof RepeatableContainerInterface ? true : false;
+        $isRepeatableContainer = $renderable instanceof RepeatableContainerInterface;
 
         $hasOriginalIdentifier = isset($renderable->getRenderingOptions()['_originalIdentifier']);
         if ($isRepeatableContainer) {
@@ -94,7 +96,7 @@ class FormHooks
             }
         }
 
-        if (!empty($repeatableContainerIdentifiers) && !$hasOriginalIdentifier) {
+        if ($repeatableContainerIdentifiers !== [] && !$hasOriginalIdentifier) {
             $newIdentifier = implode('.0.', $repeatableContainerIdentifiers) . '.0';
             if (!$isRepeatableContainer) {
                 $newIdentifier .= '.' . $renderable->getIdentifier();
@@ -110,7 +112,8 @@ class FormHooks
             $renderable->setIdentifier($newIdentifier);
             $formRuntime->getFormDefinition()->registerRenderable($renderable);
 
-            $copyService = $this->getObjectManager()->get(CopyService::class, $formRuntime);
+            // $copyService = $this->getObjectManager()->get(CopyService::class, $formRuntime);
+            $copyService = GeneralUtility::makeInstance(CopyService::class, $formRuntime);
             [$originalProcessingRule] = $copyService->copyProcessingRule($originalIdentifier, $newIdentifier);
 
             /** @var ValidatorInterface $validator */
@@ -146,16 +149,16 @@ class FormHooks
         CompositeRenderableInterface $currentPage = null,
         CompositeRenderableInterface $lastPage = null
     ): bool {
-        return $currentPage !== null
-                && $lastPage !== null
+        return $currentPage instanceof CompositeRenderableInterface
+                && $lastPage instanceof CompositeRenderableInterface
                 && $currentPage->getIndex() < $lastPage->getIndex();
     }
 
-    /**
-     * @return ObjectManager
-     */
-    protected function getObjectManager(): ObjectManager
-    {
-        return GeneralUtility::makeInstance(ObjectManager::class);
-    }
+    // /**
+    //  * @return ObjectManager
+    //  */
+    // protected function getObjectManager(): ObjectManager
+    // {
+    //     return GeneralUtility::makeInstance(ObjectManager::class);
+    // }
 }
