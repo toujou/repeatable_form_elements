@@ -1,7 +1,27 @@
 {
   "name": "toujou/tritum_repeatable-form-elements",
+  "extra": {
+    "branch-alias": {
+      "dev-main": "v12.x-dev"
+    },
+    "typo3/cms": {
+      "extension-key": "repeatable_form_elements"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
+    "sort-packages": true
+  },
   "description": "Adds a new form element which allows the editor to create new container elements with any type fields in them. In the frontend, a user can create any number of new containers. This is an extension for TYPO3 CMS.",
   "license": "GPL-2.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "TRITUM\\RepeatableFormElements\\": "Classes/"
+    }
+  },
   "type": "typo3-cms-extension",
   "authors": [
     {
@@ -24,28 +44,8 @@
     }
   ],
   "require": {
-    "typo3/cms-core": "^11.5.23 || ^12.4.0",
-    "typo3/cms-extbase": "^11.5.23 || ^12.4.0",
-    "typo3/cms-form": "^11.5.23 || ^12.4.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "TRITUM\\RepeatableFormElements\\": "Classes/"
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "typo3/class-alias-loader": true,
-      "typo3/cms-composer-installers": true
-    },
-    "sort-packages": true
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "v12.x-dev"
-    },
-    "typo3/cms": {
-      "extension-key": "repeatable_form_elements"
-    }
+    "typo3/cms-core": "^12.4 || ^13.4",
+    "typo3/cms-extbase": "^12.4 || ^13.4",
+    "typo3/cms-form": "^12.4 || ^13.4"
   }
 }
